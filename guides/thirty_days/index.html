@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+  30 Days the Chinese Way — P5 情绪价值产品落地页（2026-08-30）
+  定价 $4.99 单买 / ChinaPal Membership $4.99/月 内含
+  付费墙：body.is-member 时 .locked 全显；部署时接 chinapal.world 登录/订阅校验后加 class。
+  进阶加固：锁定内容改为异步注入（部署时由后端按会员状态返回）。
+  合规红线：wellness / self-care / cultural experience 包装，禁止医疗承诺。
+  承接：#BecomingChinese 40亿播放风口；Shorts "Day 1 of becoming Chinese" 挂本页。
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Days the Chinese Way — Slow-Living Rituals | ChinaPal AI</title>
+<meta name="description" content="Join the 40-billion-view #BecomingChinese trend. One tiny Chinese wellness ritual a day for 30 days — hot water, warm porridge, foot soaks, morning stretches. $4.99.">
+<style>
+:root{--cream:#faf7f1;--ink:#23201b;--red:#c8321d;--gold:#d9a441;--gray:#6f6a60;--line:#e7e0d3;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;max-width:980px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px}
+.seal{width:38px;height:38px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,'Songti SC',serif;font-size:20px;border-radius:8px}
+.nav-cta{background:var(--ink);color:#fff;text-decoration:none;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600}
+.hero{text-align:center;padding:56px 20px 36px}
+.hero .kicker{display:inline-block;background:#f6e7e3;color:var(--red);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:40px;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{font-size:18px;color:var(--gray);max-width:560px;margin:0 auto 26px}
+.price-pill{display:inline-flex;align-items:baseline;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 22px;font-size:15px;margin-bottom:8px;box-shadow:0 2px 10px rgba(35,32,27,.05)}
+.price-pill b{font-size:22px;color:var(--red)}
+.btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:16px 38px;border-radius:999px;box-shadow:0 6px 18px rgba(200,50,29,.28)}
+.btn.ghost{background:transparent;color:var(--red);border:2px solid var(--red);box-shadow:none}
+.sec{padding:40px 0}
+.sec h2{font-size:26px;letter-spacing:-.01em;margin-bottom:14px}
+.lead{font-size:17px;color:var(--gray)}
+.trend{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;margin-top:22px}
+.trend .big{font-size:15px;font-weight:700;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
+.trend p{margin-top:8px;color:var(--gray);font-size:15px}
+.day{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;align-items:flex-start}
+.day .num{flex:0 0 46px;height:46px;border-radius:12px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.day h3{font-size:17px;margin-bottom:3px}
+.day p{font-size:14px;color:var(--gray)}
+.day .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--gold);background:#fdf6e8;padding:2px 10px;border-radius:999px;margin-top:6px}
+.locked{position:relative;overflow:hidden}
+.locked .body{filter:blur(5px);pointer-events:none;user-select:none}
+.lock-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(250,247,241,.72);text-align:center;padding:20px}
+.lock-veil .lock{font-size:30px;margin-bottom:8px}
+.lock-veil b{font-size:17px;margin-bottom:4px}
+.lock-veil span{font-size:14px;color:var(--gray);max-width:340px}
+body.is-member .locked .body{filter:none;pointer-events:auto;user-select:auto}
+body.is-member .lock-veil{display:none}
+.includes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.inc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14px}
+.inc b{display:block;font-size:15px;margin-bottom:2px}
+.inc span{color:var(--gray)}
+.final{text-align:center;background:var(--ink);color:#fff;border-radius:20px;padding:48px 26px;margin:44px 0}
+.final h2{color:#fff;font-size:28px;margin-bottom:10px}
+.final p{color:#c9c3b8;margin-bottom:24px;font-size:16px}
+.final .btn{background:var(--gold);color:var(--ink);box-shadow:0 6px 18px rgba(217,164,65,.35)}
+.note{font-size:13px;color:var(--gray);text-align:center;padding:0 20px 40px;max-width:600px;margin:0 auto}
+footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;color:var(--gray);font-size:13px}
+footer a{color:var(--gray)}
+@media(max-width:600px){.hero h1{font-size:30px}.includes{grid-template-columns:1fr}.hero{padding:40px 16px 24px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><span class="seal">友</span>ChinaPal AI</a>
+  <a class="nav-cta" href="#get">Start Day 1</a>
+</nav>
+
+<header class="hero">
+  <span class="kicker">#BecomingChinese · 40B+ views</span>
+  <h1>30 Days <em>the Chinese Way</em></h1>
+  <p>One tiny slow-living ritual every morning — the same habits millions of people are adopting in the "Becoming Chinese" trend. Warm water, warm porridge, early nights, evening foot soaks. No gadgets, no expensive stuff.</p>
+  <div class="price-pill"><b>$4.99</b> for all 30 days · or included in membership</div><br>
+  <a class="btn" href="#get">Start your 30 days →</a>
+</header>
+
+<main class="wrap">
+
+<section class="sec">
+  <h2>The trend the whole internet is joining</h2>
+  <p class="lead">Hot water instead of iced. Cotton slippers at home. Porridge for breakfast. Sleeping before 11. It started on TikTok and Xiaohongshu, spread through BBC and NYT, and became one of the biggest wellness trends of the year — <b>#BecomingChinese</b>, over 40 billion views and counting.</p>
+  <div class="trend">
+    <div class="big">Why it works</div>
+    <p>Not because it's exotic — because each habit is <b>tiny, free, and kind to your body</b>. The hard part isn't doing one ritual. It's knowing <i>which one, when, and how to stick with it</i>. That's what this 30-day program does for you.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>Your first 3 days are free</h2>
+  <p class="lead">Each day unlocks one ritual, the story behind it, and a 30-second how-to. Check in with ChinaPal AI any time: <i>"Today is Day 7, I forgot the steps"</i> — it remembers where you are.</p>
+
+  <div class="day">
+    <div class="num">D1</div>
+    <div><h3>Warm water, first thing</h3><p>The most Chinese habit of all — and the most memed. A thermos of warm (not burning hot) water before breakfast. Why Chinese people never drink ice water, and the one rule for doing it right.</p><span class="tag">Free preview</span></div>
+  </div>
+  <div class="day">
+    <div class="num">D2</div>
+    <div><h3>Warm porridge breakfast</h3><p>Congee — rice simmered until it's almost soup. Topped with pickles, egg, or scallions. The 10-minute stovetop version and the overnight trick.</p><span class="tag">Free preview</span></div>
+  </div>
+  <div class="day">
+    <div class="num">D3</div>
+    <div><h3>Lights out before 11pm</h3><p>Chinese grandmothers agree on one thing: the sleep before midnight counts double. The 20-minute wind-down ritual that makes it easy.</p><span class="tag">Free preview</span></div>
+  </div>
+
+  <div class="day locked">
+    <div class="body" style="display:flex;gap:16px;width:100%">
+      <div class="num">D4–30</div>
+      <div>
+        <h3>27 more rituals, one per day</h3>
+        <p>Evening foot soaks · red date &amp; goji tea · morning baduanjin stretches · cotton slippers at home · ginger tea on cold days · gua sha face massage · lunchtime walk · sun your back like a Chinese grandpa · dumpling night with friends · and 19 more, building into a full slow-living routine.</p>
+        <p>Each day includes: the ritual · the cultural story · a 30-second how-to · your AI check-in. By Day 30, friends will ask why you look so rested.</p>
+      </div>
+    </div>
+    <div class="lock-veil">
+      <div class="lock">🔒</div>
+      <b>Days 4–30 are locked</b>
+      <span>Unlock all 30 days for $4.99 — or join ChinaPal Membership and get this plus travel guides, your birth-chart Chinese name, and unlimited AI chat.</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="get">
+  <h2>What's inside</h2>
+  <div class="includes">
+    <div class="inc"><b>30 daily ritual letters</b><span>One a day, 2-minute read, never overwhelming</span></div>
+    <div class="inc"><b>AI ritual companion</b><span>"It's Day 12, what do I do?" — it knows</span></div>
+    <div class="inc"><b>Check-in streak</b><span>Track your 30 days, restart any time</span></div>
+    <div class="inc"><b>The Chinese Era Kit</b><span>Free bonus: hot-water schedule, slipper checklist, 5 phrases to say</span></div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Your future self drinks warm water.</h2>
+  <p>30 days. $4.99. One small kinder habit at a time.</p>
+  <a class="btn" href="#">Unlock all 30 days — $4.99</a>
+</section>
+
+<p class="note">A cultural wellness experience inspired by traditional Chinese daily-life habits. This program is for self-care and relaxation, not medical advice — rituals are gentle lifestyle suggestions, not treatments. Always listen to your body and consult a healthcare professional for medical concerns.</p>
+
+</main>
+<footer>
+  <p>ChinaPal AI · <a href="/">chinapal.world</a> · Two doors into China: travel tools &amp; cultural experiences</p>
+</footer>
+</body>
+</html>

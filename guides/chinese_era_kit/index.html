@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+  Chinese Era Starter Kit — P8 免费引流页（2026-08-30）
+  目的：#BecomingChinese 流量换邮箱；表单部署时接邮件服务（如 Mailchimp/Resend/自建），
+  action 占位 #subscribe，部署时替换；提交后展示下载区（.kit 区块，is-subscriber 解锁）。
+  下游：引导至 /guides/thirty-days（$4.99）与 Birth Chart Name。
+  合规：cultural lifestyle / self-care，非医疗建议。
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free: The Chinese Era Starter Kit | ChinaPal AI</title>
+<meta name="description" content="Free starter kit for the #BecomingChinese trend: the hot-water daily schedule, the cotton-slipper checklist, and 5 Chinese phrases to start saying today.">
+<style>
+:root{--cream:#faf7f1;--ink:#23201b;--red:#c8321d;--gold:#d9a441;--gray:#6f6a60;--line:#e7e0d3;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;max-width:980px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px}
+.seal{width:38px;height:38px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,'Songti SC',serif;font-size:20px;border-radius:8px}
+.nav-cta{background:var(--ink);color:#fff;text-decoration:none;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600}
+.hero{text-align:center;padding:52px 20px 30px}
+.tag{display:inline-block;background:#f6e7e3;color:var(--red);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:38px;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{font-size:17px;color:var(--gray);max-width:520px;margin:0 auto 26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 24px;box-shadow:0 4px 20px rgba(35,32,27,.06)}
+.form-row{display:flex;gap:10px;margin-top:8px}
+input[type=email]{flex:1;padding:15px 18px;border:1px solid var(--line);border-radius:999px;font-size:16px;background:var(--cream);outline:none;min-width:0}
+input[type=email]:focus{border-color:var(--red)}
+button{background:var(--red);color:#fff;border:0;border-radius:999px;padding:15px 28px;font-size:16px;font-weight:700;cursor:pointer;white-space:nowrap}
+.fine{font-size:12px;color:var(--gray);margin-top:12px;text-align:center}
+.items{display:grid;gap:12px;margin:34px 0}
+.item{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;align-items:flex-start}
+.item .ico{font-size:24px;line-height:1.4}
+.item h3{font-size:16px;margin-bottom:2px}
+.item p{font-size:14px;color:var(--gray);margin:0}
+.kit{display:none;margin-top:26px;background:#f1ead9;border:1px solid var(--gold);border-radius:16px;padding:24px;text-align:left}
+body.is-subscriber .kit{display:block}
+body.is-subscriber .signup{display:none}
+.kit h3{font-size:17px;margin-bottom:12px;color:var(--ink)}
+.kit ul{padding-left:18px;font-size:14px;color:var(--gray)}
+.kit li{margin-bottom:6px}
+.phrase{font-weight:700;color:var(--red)}
+.next{text-align:center;background:var(--ink);color:#fff;border-radius:20px;padding:42px 24px;margin:40px 0}
+.next h2{font-size:24px;margin-bottom:8px}
+.next p{color:#c9c3b8;font-size:15px;margin-bottom:20px}
+.next a{display:inline-block;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:700;padding:14px 32px;border-radius:999px}
+.note{font-size:13px;color:var(--gray);text-align:center;padding:0 20px 36px;max-width:560px;margin:0 auto}
+footer{border-top:1px solid var(--line);padding:26px 20px;text-align:center;color:var(--gray);font-size:13px}
+@media(max-width:600px){.hero h1{font-size:29px}.form-row{flex-direction:column}button{width:100%}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><span class="seal">友</span>ChinaPal AI</a>
+  <a class="nav-cta" href="#kit">Get it free</a>
+</nav>
+
+<header class="hero">
+  <span class="tag">Free · #BecomingChinese</span>
+  <h1>The Chinese Era <em>Starter Kit</em></h1>
+  <p>Three things everyone adopting the Chinese slow-living habits needs on day one — no payment, no app. Just drop your email.</p>
+
+  <div class="card" id="kit">
+    <form class="signup" action="#subscribe" method="post" onsubmit="document.body.classList.add('is-subscriber');return false;">
+      <div class="form-row">
+        <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address">
+        <button type="submit">Get the free kit</button>
+      </div>
+      <p class="fine">Instant access on this page. One welcome email, no spam. Unsubscribe anytime.</p>
+    </form>
+
+    <div class="kit">
+      <h3>✅ Your Chinese Era Starter Kit</h3>
+      <ul>
+        <li><b>The Hot-Water Daily Schedule:</b> warm water on waking · with every meal · 30 min before bed — temperatures and the red-date-goji upgrade.</li>
+        <li><b>The Cotton-Slipper Checklist:</b> shoes at the door rule, what to buy, and the 3 places Chinese people never wear outdoor shoes.</li>
+        <li><b>5 Phrases to Start Saying Today:</b><br>
+          <span class="phrase">多喝热水</span> duō hē rè shuǐ — "Drink more hot water" (fixes everything)<br>
+          <span class="phrase">早点睡</span> zǎo diǎn shuì — "Go to bed early" (Chinese mom love language)<br>
+          <span class="phrase">吃了吗</span> chī le ma — "Have you eaten?" (actual hello)<br>
+          <span class="phrase">泡脚</span> pào jiǎo — "Foot soak" (the 10pm ritual)<br>
+          <span class="phrase">我已经是中国人了</span> wǒ yǐjīng shì zhōngguó rén le — "I'm basically Chinese now" (post with pride)</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="items">
+    <div class="item"><div class="ico">🥤</div><div><h3>The Hot-Water Schedule</h3><p>Exactly when to drink it, how warm, and why your Chinese friends keep side-eyeing your iced coffee.</p></div></div>
+    <div class="item"><div class="ico">🥿</div><div><h3>The Slipper Checklist</h3><p>The one home rule every Chinese household shares — and how to set it up in your own place this week.</p></div></div>
+    <div class="item"><div class="ico">🗣️</div><div><h3>5 Essential Phrases</h3><p>The actual sentences Chinese people say every day — pinyin included, so you can say them out loud.</p></div></div>
+  </section>
+
+  <section class="next">
+    <h2>Done with the starter kit?</h2>
+    <p>There are 30 habits in total — warm porridge, foot soaks, morning stretches, early nights. Do one a day with the full 30-day program and an AI companion that remembers your streak.</p>
+    <a href="/guides/thirty-days">See 30 Days the Chinese Way — $4.99 →</a>
+  </section>
+
+  <p class="note">A cultural lifestyle experience inspired by everyday Chinese habits — gentle self-care ideas, not medical advice.</p>
+</main>
+<footer>
+  <p>ChinaPal AI · <a href="/">chinapal.world</a></p>
+</footer>
+</body>
+</html>

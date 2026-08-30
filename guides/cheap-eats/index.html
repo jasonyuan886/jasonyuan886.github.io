@@ -1,0 +1,497 @@
+<!doctype html>
+<!--
+  China Cheap Eats Guide — 付费墙落地页（2026-08-30 袁总定）
+  模式：免费试读前2道（视频同款茶叶蛋+煎饼，建立信任），第3道起 + Ordering Survival Kit 模糊锁定，
+  解锁CTA直达 https://chinapal.world（订阅/付费ChinaPal AI后解锁）。
+  生产部署接入：chinapal.world 登录态/订阅校验通过后给 <body> 加 class="is-member"，锁定内容自动全显；
+  未登录/未付费保持当前锁定态。进阶加固：锁定内容改为付费校验后异步注入（当前全文在HTML中利于SEO收录）。
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>China Cheap Eats Guide: What to Eat, Where to Find It &amp; How to Order (2026)</title>
+<meta name="description" content="The practical food guide for China travelers: 10 must-try cheap eats with real prices, where to find them, when to go, and Chinese phrases you can show to order. Eat like a local for under $15 a day.">
+<style>
+  :root{
+    --red:#c8321d; --red-dark:#a32615; --gold:#d9a441; --ink:#2b2118;
+    --cream:#faf6ef; --card:#ffffff; --line:#ecdfcf; --green:#1e7d4f; --muted:#7a6b5d;
+    --lock-bg:rgba(43,33,24,.97);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+  /* hero */
+  header.hero{background:linear-gradient(160deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;padding:44px 16px 36px;text-align:center}
+  header.hero .kicker{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;margin-bottom:10px}
+  header.hero h1{font-size:30px;line-height:1.2;font-weight:800;margin-bottom:12px}
+  header.hero p.sub{font-size:16px;opacity:.95;max-width:560px;margin:0 auto 20px}
+  .hero-stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+  .stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 16px;min-width:130px}
+  .stat b{display:block;font-size:22px;font-weight:800}
+  .stat span{font-size:12px;opacity:.85}
+  .preview-badge{display:inline-block;margin-top:16px;background:var(--gold);color:#2b2118;font-weight:800;font-size:13px;
+    border-radius:999px;padding:6px 16px}
+  /* sections */
+  section{padding:30px 0 6px}
+  h2{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .bar{width:6px;height:22px;background:var(--red);border-radius:3px;display:inline-block}
+  .lead{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  /* food cards */
+  .food{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;
+    box-shadow:0 2px 10px rgba(120,80,40,.06);position:relative;overflow:hidden}
+  .food.premium{border:1.5px solid #e8d9c2}
+  .badge{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;letter-spacing:.06em;
+    border-radius:999px;padding:3px 10px;text-transform:uppercase}
+  .badge.free{background:#e7f6ec;color:var(--green)}
+  .badge.premium{background:#fdf3dd;color:#a06a12}
+  .food-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;padding-right:70px}
+  .food-emoji{font-size:34px;line-height:1}
+  .food-name{flex:1}
+  .food-name h3{font-size:18px;font-weight:800;line-height:1.25}
+  .food-name .zh{color:var(--muted);font-size:14px}
+  .price{background:#fff4e0;color:#a06a12;font-weight:800;border-radius:999px;padding:5px 12px;font-size:14px;white-space:nowrap;border:1px solid #f0d9a8}
+  .price small{display:block;font-size:10.5px;font-weight:600;color:#b08a45;text-align:center}
+  .food p.what{font-size:14.5px;margin-bottom:10px}
+  .meta{display:grid;grid-template-columns:1fr;gap:8px;font-size:14px}
+  .meta .row{display:flex;gap:8px;align-items:flex-start}
+  .meta .tag{flex:0 0 74px;font-weight:700;color:var(--red);font-size:12.5px;padding-top:2px}
+  .say{background:#f4faf5;border:1.5px dashed var(--green);border-radius:10px;padding:10px 12px;margin-top:10px}
+  .say .zh-big{font-size:19px;font-weight:800;letter-spacing:.02em}
+  .say .py{font-size:13px;color:var(--muted);font-style:italic}
+  .say .en{font-size:13px;color:var(--green);font-weight:600}
+  .tip{font-size:13px;background:#fff9ec;border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:10px}
+  .vs{display:inline-block;background:#fdeceb;color:var(--red);font-weight:700;font-size:12.5px;border-radius:6px;padding:2px 8px;margin-top:6px}
+  /* paywall lock */
+  .locked-content{position:relative}
+  body:not(.is-member) .locked-content{filter:blur(7px);pointer-events:none;user-select:none}
+  .lock-overlay{display:none;position:absolute;inset:0;z-index:5;background:linear-gradient(180deg,rgba(250,246,239,.15) 0%,var(--lock-bg) 55%);
+    border-radius:12px;text-align:center;padding:26px 20px;color:#fff;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+  body:not(.is-member) .lock-overlay{display:flex}
+  .lock-overlay .lock-ico{font-size:34px}
+  .lock-overlay h4{font-size:16.5px;font-weight:800;line-height:1.35}
+  .lock-overlay p{font-size:13px;opacity:.85;max-width:330px}
+  .lock-btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:14.5px;text-decoration:none;
+    padding:11px 26px;border-radius:999px;margin-top:4px;box-shadow:0 4px 14px rgba(217,164,65,.4)}
+  /* section-level lock */
+  .section-lock{position:relative}
+  body:not(.is-member) .section-lock .locked-content{filter:blur(7px);pointer-events:none;user-select:none}
+  /* survival */
+  .grid2{display:grid;grid-template-columns:1fr;gap:14px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .box h4{font-size:15.5px;font-weight:800;margin-bottom:8px;color:var(--red-dark)}
+  .box ul{list-style:none;font-size:14px}
+  .box li{padding:5px 0 5px 22px;position:relative}
+  .box li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+  table.phrases{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  table.phrases th,table.phrases td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  table.phrases th{background:#f6ece0;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  table.phrases td.zh{font-weight:800;font-size:16px;white-space:nowrap}
+  table.phrases td.py{color:var(--muted);font-style:italic;font-size:13px}
+  .tbl-scroll{overflow-x:auto;border-radius:14px}
+  /* big upsell between free & premium */
+  .upsell{background:linear-gradient(160deg,#1f1a15,#3a2c1f);color:#fff;border-radius:20px;padding:30px 22px;text-align:center;margin:8px 0 22px}
+  .upsell h3{font-size:20px;font-weight:800;margin-bottom:8px}
+  .upsell p{opacity:.9;font-size:14.5px;max-width:480px;margin:0 auto 16px}
+  .upsell .btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:16px;text-decoration:none;
+    padding:13px 32px;border-radius:999px;box-shadow:0 6px 18px rgba(217,164,65,.35)}
+  .upsell small{display:block;margin-top:12px;opacity:.7;font-size:12.5px}
+  /* CTA */
+  .cta{background:linear-gradient(160deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;border-radius:20px;padding:32px 22px;text-align:center;margin:34px 0 10px}
+  .cta h2{color:#fff;justify-content:center;font-size:23px;margin-bottom:10px}
+  .cta p{opacity:.95;font-size:15px;max-width:480px;margin:0 auto 20px}
+  .btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:17px;text-decoration:none;
+    padding:14px 34px;border-radius:999px;box-shadow:0 6px 18px rgba(217,164,65,.35)}
+  .cta small{display:block;margin-top:14px;opacity:.85;font-size:12.5px}
+  footer{padding:26px 0 50px;font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--red-dark)}
+  footer .src{margin-top:8px;line-height:1.8}
+  @media(min-width:640px){
+    .grid2{grid-template-columns:1fr 1fr}
+    header.hero h1{font-size:36px}
+    .meta{grid-template-columns:1fr 1fr}
+  }
+  @media print{
+    header.hero,.cta,.upsell{background:#fff;color:#000;border:1px solid #ccc}
+    .btn,.lock-btn{border:1px solid #000;color:#000;box-shadow:none}
+    .food,.box{break-inside:avoid;box-shadow:none}
+    body:not(.is-member) .locked-content{display:none}
+    .lock-overlay{display:none !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">ChinaPal AI · Travel Guide</div>
+    <h1>China Cheap Eats Guide</h1>
+    <p class="sub">What to eat, where to find it, what it costs, and exactly what to say — so you eat like a local, not like a tourist.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>&lt; ¥100</b><span>a full food day (~$14)</span></div>
+      <div class="stat"><b>¥2–30</b><span>most street food ($0.30–4)</span></div>
+      <div class="stat"><b>0%</b><span>tipping — anywhere, ever</span></div>
+    </div>
+    <div class="preview-badge">🔓 Free preview: 2 of 10 dishes</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="bar"></span>10 Must-Try Cheap Eats</h2>
+  <p class="lead">Prices are real 2026 street/local prices in RMB (¥7.2 ≈ $1). Tourist streets charge 20–30% more — the "where" and "when" below are how you pay local prices.</p>
+
+  <!-- 1 Tea eggs — FREE -->
+  <article class="food">
+    <span class="badge free">Free preview</span>
+    <div class="food-head">
+      <div class="food-emoji">🥚</div>
+      <div class="food-name"><h3>Tea Eggs</h3><div class="zh">茶叶蛋 · chá yè dàn</div></div>
+      <div class="price">¥2–3<small>~$0.30</small></div>
+    </div>
+    <p class="what">Eggs simmered for hours in soy sauce, black tea, star anise and cinnamon, with marble-like cracks in the shell. The 12-year internet meme foreigners are now trying (and failing) to copy at home — skip the kitchen, they're everywhere in China.</p>
+    <div class="meta">
+      <div class="row"><span class="tag">Where</span><span>Steel pots at every 7-Eleven, FamilyMart, Lawson — and morning street stalls.</span></div>
+      <div class="row"><span class="tag">When</span><span>All day at convenience stores; breakfast stalls 6–9 AM.</span></div>
+    </div>
+    <div class="say"><div class="zh-big">来一个茶叶蛋</div><div class="py">lái yí gè chá yè dàn</div><div class="en">"One tea egg, please."</div></div>
+    <div class="tip">Grab with tongs, pay at the counter. No cooking, no hunting for star anise — the whole internet is copying China; you can just go.</div>
+  </article>
+
+  <!-- 2 Jianbing — FREE -->
+  <article class="food">
+    <span class="badge free">Free preview</span>
+    <div class="food-head">
+      <div class="food-emoji">🥞</div>
+      <div class="food-name"><h3>Jianbing (Chinese Crepe)</h3><div class="zh">煎饼果子 · jiānbing guǒzi</div></div>
+      <div class="price">¥8–12<small>~$1.50</small></div>
+    </div>
+    <p class="what">Savory mung-bean crepe cooked on a flat griddle, folded around a crispy fried cracker, egg, cilantro and hoisin. Made fresh in front of you in 2 minutes — China's favorite commute breakfast.</p>
+    <div class="meta">
+      <div class="row"><span class="tag">Where</span><span>Street carts at subway exits, office areas, hutong entrances.</span></div>
+      <div class="row"><span class="tag">When</span><span>Morning only, roughly 6:30–9:30 AM. Follow the line of commuters.</span></div>
+    </div>
+    <div class="say"><div class="zh-big">一个煎饼，不要辣</div><div class="py">yí gè jiānbing, bú yào là</div><div class="en">"One jianbing, no spicy."</div></div>
+    <div class="tip">Wangfujing snack-street versions cost ¥10–15 and are fine, but the cart outside your hotel with the local queue is the same thing cheaper.</div>
+  </article>
+
+  <!-- upsell gate -->
+  <div class="upsell">
+    <h3>🔒 8 more dishes + the Ordering Survival Kit</h3>
+    <p>Roujiamo, xiaolongbao, stinky tofu, hulatang (the £13.80 London soup — ¥12 at home), hotpot and more — plus the Chinese phrase cheat sheet and the mobile-payment setup that gets you fed anywhere.</p>
+    <a class="btn" href="https://chinapal.world">Unlock the full guide →</a>
+    <small>Included with ChinaPal AI · chinapal.world</small>
+  </div>
+
+  <!-- 3 Roujiamo — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🍔</div>
+      <div class="food-name"><h3>Roujiamo ("Chinese Hamburger")</h3><div class="zh">肉夹馍 · ròujiāmó</div></div>
+      <div class="price">¥10–15<small>~$1.80</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Slow-braised, cumin-spiced pork chopped and stuffed into a toasted flatbread. From Xi'an, 2,000 years old — arguably the world's oldest hamburger, and it beats most actual burgers.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Xi'an everywhere; chains and street stalls in most cities. Look for the chopping-board sound.</span></div>
+        <div class="row"><span class="tag">When</span><span>Lunch &amp; dinner, 10 AM–8 PM.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">来一个肉夹馍</div><div class="py">lái yí gè ròujiāmó</div><div class="en">"One roujiamo, please."</div></div>
+      <div class="tip">In Xi'an, pair it with liangpi (cold skin noodles, ¥10–18) from the same shop — the classic combo, full meal under ¥30.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 4 Baozi — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🥟</div>
+      <div class="food-name"><h3>Baozi (Steamed Buns)</h3><div class="zh">包子 · bāozi</div></div>
+      <div class="price">¥1.5–3<small>~$0.30 each</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Fluffy steamed buns stuffed with pork, beef, vegetables or red bean. Stacked in bamboo steamers at every morning stall — three of them and a soy milk is a ¥10 breakfast.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Any shop with stacked bamboo steamers out front; chains like 巴比 / 庆丰.</span></div>
+        <div class="row"><span class="tag">When</span><span>Morning to early afternoon.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">两个肉包，一杯豆浆</div><div class="py">liǎng gè ròu bāo, yì bēi dòujiāng</div><div class="en">"Two pork buns and a soy milk."</div></div>
+      <div class="tip">Hold up fingers for quantity. Pork (肉包) is the safe default; red bean (豆沙包) is the sweet one.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 5 Xiaolongbao — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🥟</div>
+      <div class="food-name"><h3>Xiaolongbao (Soup Dumplings)</h3><div class="zh">小笼包 · xiǎolóngbāo</div></div>
+      <div class="price">¥28–58<small>~$4–8 / steamer</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Shanghai's delicate dumplings filled with pork and a spoonful of scalding soup. Every tourist's first bite is a mistake — the soup squirts and burns. Eat them the local way.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Shanghai (Nanxiang/佳家汤包); dim sum shops nationwide. A steamer = 8–12 pieces.</span></div>
+        <div class="row"><span class="tag">When</span><span>Breakfast &amp; lunch; locals go before 10 AM.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">一笼小笼包</div><div class="py">yì lóng xiǎolóngbāo</div><div class="en">"One steamer of xiaolongbao."</div></div>
+      <div class="tip">Bite a small hole in the top, slurp the soup first, dip in vinegar+ginger. Never pop one whole in your mouth.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 6 Stinky tofu — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🟫</div>
+      <div class="food-name"><h3>Stinky Tofu</h3><div class="zh">臭豆腐 · chòu dòufu</div></div>
+      <div class="price">¥5–10<small>~$1</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Fermented tofu, deep-fried until crispy, drowned in chili-garlic sauce. It smells like a blocked drain and tastes like the best savory snack of your life — the classic China flex food.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Night markets. Changsha's Taiping Street version is the national benchmark.</span></div>
+        <div class="row"><span class="tag">When</span><span>Evening / night markets after 6 PM.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">一份臭豆腐，微辣</div><div class="py">yí fèn chòu dòufu, wēi là</div><div class="en">"One stinky tofu, mildly spicy."</div></div>
+      <div class="tip">The smell announces the stall from half a block away — follow your nose, then hold your breath at the first bite.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 7 Tanghulu — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🍓</div>
+      <div class="food-name"><h3>Tanghulu (Candied Fruit Skewers)</h3><div class="zh">糖葫芦 · tánghúlu</div></div>
+      <div class="price">¥5–15<small>~$1–2</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Hawthorn berries (or strawberries, grapes, cherry tomatoes) coated in a glassy sugar shell that shatters when you bite. Sweet-sour-crunchy, impossible to eat without smiling.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Street carts in tourist areas and neighborhood streets alike.</span></div>
+        <div class="row"><span class="tag">When</span><span>October–March — the sugar shell melts in summer. Winter or skip it.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">一根草莓糖葫芦</div><div class="py">yì gēn cǎoméi tánghúlu</div><div class="en">"One strawberry tanghulu."</div></div>
+      <div class="tip">First-timers: get the strawberry version. The classic hawthorn is mouth-puckeringly sour.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 8 Malatang — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🍲</div>
+      <div class="food-name"><h3>Malatang (Build-Your-Own Spicy Soup)</h3><div class="zh">麻辣烫 · málàtàng</div></div>
+      <div class="price">¥20–30<small>~$3–4</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">A single-person hot pot: grab a bowl, pick skewers of veggies, tofu, meat and noodles from the fridge, hand it over, and it comes back boiled in numbing-spicy broth. You pay by weight.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Everywhere. National chains 杨国福 (Yang Guofu) &amp; 张亮 (Zhang Liang) — thousands of shops; independents are often better.</span></div>
+        <div class="row"><span class="tag">When</span><span>Lunch &amp; dinner, all day.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">微辣，谢谢</div><div class="py">wēi là, xièxie</div><div class="en">"Mildly spicy, thanks."</div></div>
+      <div class="tip">The default broth is genuinely hot. <b>微辣 (wēi là, mildly spicy)</b> is the smart foreigner setting — you can always add chili oil.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 9 Hulatang — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🥣</div>
+      <div class="food-name"><h3>Hulatang (Henan Pepper Soup)</h3><div class="zh">胡辣汤 · hú là tāng</div></div>
+      <div class="price">¥8–12<small>~$1.50</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">Thick, peppery breakfast soup loaded with beef, tofu skin, vermicelli and mushrooms, eaten with youtiao (fried dough) dipped in. Henan's 36-year-old chains are now opening in London — at London prices.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Henan province breakfast shops (方中山/Fang Zhongshan is the famous chain); elsewhere look for shops with steam clouds and local crowds at dawn.</span></div>
+        <div class="row"><span class="tag">When</span><span>6–9 AM only. Follow the steam.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">一碗胡辣汤，两根油条</div><div class="py">yì wǎn hú là tāng, liǎng gēn yóutiáo</div><div class="en">"One hulatang and two youtiao."</div></div>
+      <span class="vs">In London this bowl costs £13.80 (~¥130). In China: ¥12.</span>
+      <div class="tip">Skip the tourist streets — local breakfast shops open at 6 AM and close by mid-morning.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>The £13.80 London bowl — ¥12 in China</h4>
+      <p>Unlock for the exact spot, timing, and the Chinese line to order like a regular.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- 10 Hotpot — LOCKED -->
+  <article class="food premium">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🍲</div>
+      <div class="food-name"><h3>Hotpot</h3><div class="zh">火锅 · huǒguō</div></div>
+      <div class="price">¥80–150<small>~$11–20 / person</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">The #1 food experience foreigners come for: a boiling pot in the middle of the table, raw plates to cook yourself, chaos and fun. Chongqing/Sichuan spicy broth is the real deal — but order smart.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Any city; chains like 海底捞 (Haidilao, famous for service) or local Chongqing spots. Guijie in Beijing runs to 3 AM.</span></div>
+        <div class="row"><span class="tag">When</span><span>Dinner; go with a group to try more dishes.</span></div>
+      </div>
+      <div class="say"><div class="zh-big">要鸳鸯锅，微辣</div><div class="py">yào yuānyāng guō, wēi là</div><div class="en">"Split pot (half spicy, half plain), mildly spicy."</div></div>
+      <div class="tip">鸳鸯锅 (yuānyāng guō, "mandarin duck pot") = half spicy / half plain broth. Your safety net. Tripe (毛肚) cooks in 15 seconds — don't overcook it.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This dish is unlocked in the full guide</h4>
+      <p>Where to find it, when to go, and the exact Chinese line to order.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+
+  <!-- bonus Mixue — LOCKED -->
+  <article class="food premium" style="border:2px solid var(--gold)">
+    <span class="badge premium">🔒 Premium</span>
+    <div class="food-head">
+      <div class="food-emoji">🍦</div>
+      <div class="food-name"><h3>Bonus: Mixue Ice Cream &amp; Tea</h3><div class="zh">蜜雪冰城 · mìxuě bīngchéng</div></div>
+      <div class="price">¥4–8<small>~$0.60–1.10</small></div>
+    </div>
+    <div class="locked-content">
+      <p class="what">China's viral snowman-branded tea chain, now taking over New York and London. In China the soft-serve cone costs ¥2 and lemon water ¥4 — the same cone is $1.19 in NYC and a comparable drink $3–4. The theme song will be stuck in your head for life.</p>
+      <div class="meta">
+        <div class="row"><span class="tag">Where</span><span>Every 200 meters in every Chinese city. Seriously.</span></div>
+        <div class="row"><span class="tag">Order</span><span>Kiosks have picture menus; tap and pay by QR.</span></div>
+      </div>
+      <div class="tip">Order a 柠檬水 (níngméng shuǐ, fresh lemonade) — it's ¥4 and better than most $6 lemonades in the West.</div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>This bonus is in the full guide</h4>
+      <p>Plus the Ordering Survival Kit with every Chinese phrase you'll need.</p>
+      <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+    </div>
+  </article>
+</section>
+
+<section class="section-lock">
+  <h2><span class="bar"></span>The Ordering Survival Kit 🔒</h2>
+  <p class="lead">You do not need to speak Chinese. You need a phone, a finger, and six phrases. This section — the phrase cheat sheet, the queue-following rules, and the mobile-payment setup — is part of the full guide.</p>
+  <div class="locked-content">
+    <div class="grid2">
+      <div class="box">
+        <h4>The universal cheat code</h4>
+        <ul>
+          <li><b>Point at what you want</b> — the dish on the next table, the skewer on the cart, the photo on the menu — and say <b>这个 (zhège)</b>, "this one."</li>
+          <li>Hold up <b>fingers for quantity</b>.</li>
+          <li>Vendor types the price on their calculator; you scan their QR to pay.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>Finding the good stuff</h4>
+        <ul>
+          <li><b>Follow the local queue</b> — a line of locals (especially older ones) means amazing.</li>
+          <li>Avoid stalls with <b>English menus or photos of foreigners</b> — tourist traps, +20–30%.</li>
+          <li><b>大众点评 (Dianping)</b> is China's Yelp: look for 4.5+ stars &amp; 1000+ reviews.</li>
+          <li><b>No tipping</b>, anywhere, ever. Tea is free in most restaurants.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tbl-scroll" style="margin-top:14px">
+    <table class="phrases">
+      <tr><th>Chinese</th><th>Pinyin</th><th>English</th></tr>
+      <tr><td class="zh">这个</td><td class="py">zhège</td><td>"This one" (point!)</td></tr>
+      <tr><td class="zh">不要辣</td><td class="py">bú yào là</td><td>No spicy — the #1 survival phrase</td></tr>
+      <tr><td class="zh">微辣</td><td class="py">wēi là</td><td>Mildly spicy</td></tr>
+      <tr><td class="zh">这个多少钱？</td><td class="py">zhège duōshao qián?</td><td>How much is this?</td></tr>
+      <tr><td class="zh">微信可以吗？</td><td class="py">wēixìn kěyǐ ma?</td><td>Can I pay with WeChat?</td></tr>
+      <tr><td class="zh">打包</td><td class="py">dǎbāo</td><td>To-go / pack it up</td></tr>
+      <tr><td class="zh">买单</td><td class="py">mǎidān</td><td>The bill, please</td></tr>
+      <tr><td class="zh">好吃！</td><td class="py">hǎochī!</td><td>Delicious! (vendors love this)</td></tr>
+    </table>
+    </div>
+
+    <div class="box" style="margin-top:14px">
+      <h4>Paying like a local</h4>
+      <ul>
+        <li>Bind an international bank card in <b>Alipay</b> or <b>WeChat Pay</b> before you land — both now support foreign Visa/Mastercard. Scan the vendor's QR, type the amount, show the "paid" screen.</li>
+        <li>Sit-down restaurants: scan the <b>QR code on the table</b> → Chinese menu opens → use your camera translate / order by photos.</li>
+        <li>Cash still works at some street stalls, but mobile pay is universal in cities.</li>
+        <li>Too tired to go out? <b>Meituan / Ele.me</b> deliver food to your hotel in 15–30 minutes.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="lock-overlay" style="position:relative;inset:auto;margin-top:-260px;min-height:240px;border-radius:16px">
+    <div class="lock-ico">🔒</div>
+    <h4>The Ordering Survival Kit is part of the full guide</h4>
+    <p>8 phrase cheat lines, the local-queue rules, and step-by-step mobile payment setup with a foreign card.</p>
+    <a class="lock-btn" href="https://chinapal.world">Unlock with ChinaPal AI</a>
+  </div>
+</section>
+
+<section>
+  <div class="cta">
+    <h2>Your AI Food Companion in China</h2>
+    <p>Every dish above — and a thousand more — one question away. Ask ChinaPal AI: <i>"Where's the best hulatang near my hotel?", "Translate this menu", "How do I order this in Chinese?"</i> It finds the spots, reads the menus, and tells you exactly what to say.</p>
+    <a class="btn" href="https://chinapal.world">Get ChinaPal AI →</a>
+    <small>Full guide included · works in English · chinapal.world</small>
+  </div>
+</section>
+
+<footer>
+  <div><b>ChinaPal AI</b> — your AI assistant for traveling China. Food, transport, payments, language: chinapal.world</div>
+  <div class="src">
+    Prices &amp; facts compiled from 2026 travel sources:
+    <a href="https://www.notesfromchina.com/blog/chinese-food-101/" rel="noopener">Notes from China – Food Guide</a> ·
+    <a href="https://www.notesfromchina.com/blog/chinese-street-food-guide/" rel="noopener">Street Food Guide</a> ·
+    <a href="https://roamchinatravel.com/posts/destinations/beijing-food-street-market-guide/" rel="noopener">Beijing Street Food 2026</a> ·
+    <a href="https://localcntrip.com/food/" rel="noopener">LocalCNTrip – Food by City</a> ·
+    <a href="https://cntripessentials.com/guides/china-food-guide.html" rel="noopener">CN Trip Essentials – Food Guide</a> ·
+    <a href="https://wanderpeng.com/en/blog/how-to-order-food-china-without-chinese" rel="noopener">How to Order Without Chinese</a> ·
+    <a href="https://www.chinadailyasia.com/hk/article/627172" rel="noopener">China Daily – Mixue in New York</a> ·
+    55.5% of surveyed international travelers rank classic Chinese food as their top China interest (CGTN 2026 poll).
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

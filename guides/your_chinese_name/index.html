@@ -1,0 +1,328 @@
+<!doctype html>
+<!--
+  Birth Chart Name — 情绪价值产品线 P1 落地页（2026-08-30 八字升级版）
+  定位：不来中国的老外也会付费的情绪钩子。免费拿1个中文名+含义；付费$9.99按八字五行定制完整命名报告。
+  付费墙机制同 china_cheap_eats_guide.html：chinapal.world 登录/订阅校验通过后给 <body> 加 class="is-member" 全显；
+  进阶加固：锁定内容改为付费校验后异步注入。
+  ⚠️ 红线1：八字四柱/五行必须服务端排盘库（lunar-python/sxtwl 类）确定性计算，禁止LLM编八字；AI只做解读+选字。
+  ⚠️ 红线2：全站定位 cultural experience / self-reflection，禁止命运/运势承诺（FateTell 同款"自我探索工具"口径）。
+  ⚠️ 上线前实测项见《情绪价值产品线.md》三-P1：排盘案例校验、AI选字五行属性核对、免费prompt质量。
+  页面中的八字示例为 illustrative 展示，真实报告由排盘引擎生成。
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Chinese Name by Birth Date: The Five Elements Naming Tradition (2026)</title>
+<meta name="description" content="Western astrology gives you a sun sign. Chinese tradition goes deeper: your birth chart's Five Elements — and a name chosen to balance them. Get a real Chinese name free, or unlock your full birth-chart naming report with ChinaPal AI.">
+<style>
+  :root{
+    --red:#c8321d; --red-dark:#a32615; --gold:#d9a441; --ink:#2b2118;
+    --cream:#faf6ef; --card:#ffffff; --line:#ecdfcf; --green:#1e7d4f; --muted:#7a6b5d;
+    --lock-bg:rgba(43,33,24,.97);
+    --wood:#3e8e5a; --fire:#d94f2b; --earth:#b08a4a; --metal:#9aa7b0; --water:#3a6ea5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+  /* hero */
+  header.hero{background:linear-gradient(160deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;padding:46px 16px 38px;text-align:center;position:relative;overflow:hidden}
+  header.hero .han-bg{position:absolute;font-family:"Songti SC","SimSun","Noto Serif SC",serif;font-size:220px;color:rgba(255,255,255,.06);
+    top:-40px;right:-20px;line-height:1;font-weight:900;pointer-events:none}
+  header.hero .kicker{font-size:13px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;margin-bottom:10px;position:relative}
+  header.hero h1{font-size:30px;line-height:1.22;font-weight:800;margin-bottom:12px;position:relative}
+  header.hero p.sub{font-size:16px;opacity:.95;max-width:560px;margin:0 auto 22px;position:relative}
+  .name-form{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:18px;max-width:480px;
+    margin:0 auto;position:relative;backdrop-filter:blur(4px)}
+  .name-form label{display:block;font-size:13px;opacity:.9;margin-bottom:8px;font-weight:700}
+  .name-form .row{display:flex;gap:8px}
+  .name-form input{flex:1;border:none;border-radius:999px;padding:13px 18px;font-size:16px;outline:none;min-width:0}
+  .name-form a.btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:15px;text-decoration:none;
+    padding:13px 22px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 14px rgba(217,164,65,.4)}
+  .name-form small{display:block;margin-top:10px;font-size:12px;opacity:.8}
+  .prompt-copy{margin-top:12px;background:rgba(0,0,0,.18);border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:left;
+    font-style:italic;opacity:.92;position:relative}
+  .prompt-copy code{font-style:normal}
+  /* sections */
+  section{padding:30px 0 6px}
+  h2{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .bar{width:6px;height:22px;background:var(--red);border-radius:3px;display:inline-block}
+  .lead{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  /* five elements */
+  .elements{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 6px}
+  .el{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;
+    border-top:4px solid var(--metal)}
+  .el.wood{border-top-color:var(--wood)} .el.fire{border-top-color:var(--fire)} .el.earth{border-top-color:var(--earth)}
+  .el.metal{border-top-color:var(--metal)} .el.water{border-top-color:var(--water)}
+  .el .han{font-family:"Songti SC","SimSun",serif;font-size:24px;font-weight:900;display:block}
+  .el.wood .han{color:var(--wood)} .el.fire .han{color:var(--fire)} .el.earth .han{color:var(--earth)}
+  .el.metal .han{color:var(--metal)} .el.water .han{color:var(--water)}
+  .el b{font-size:12.5px;display:block;margin-top:2px}
+  .el span{font-size:11px;color:var(--muted);display:block;line-height:1.35;margin-top:2px}
+  .cycle{background:#f4faf5;border:1.5px dashed var(--green);border-radius:12px;padding:12px 14px;font-size:13.5px;margin-top:10px}
+  /* how it works */
+  .steps{display:grid;grid-template-columns:1fr;gap:12px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+  .step .num{flex:0 0 36px;height:36px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:17px;
+    display:flex;align-items:center;justify-content:center}
+  .step h4{font-size:15.5px;font-weight:800;margin-bottom:2px}
+  .step p{font-size:13.5px;color:var(--muted)}
+  /* examples */
+  .example{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;
+    box-shadow:0 2px 10px rgba(120,80,40,.06)}
+  .ex-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+  .ex-han{font-family:"Songti SC","SimSun","Noto Serif SC",serif;font-size:44px;font-weight:900;color:var(--red-dark);line-height:1;letter-spacing:4px}
+  .ex-meta{flex:1;min-width:160px}
+  .ex-meta .from{font-size:13px;color:var(--muted)}
+  .ex-meta .from b{color:var(--ink)}
+  .ex-meta .py{font-size:20px;font-weight:800}
+  .ex-meta .py .tone{color:var(--red)}
+  .chart-tag{display:inline-block;font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 12px;margin-top:4px;
+    background:linear-gradient(90deg,#e8f3ec,#fdeee2);color:#5a4632;border:1px solid #e4d5bd}
+  .chart-tag small{display:block;font-weight:600;font-size:10px;color:var(--muted)}
+  .char-row{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
+  .char{background:#faf3e8;border-radius:10px;padding:10px 12px;font-size:14px}
+  .char b{font-family:"Songti SC","SimSun","Noto Serif SC",serif;font-size:18px;color:var(--red-dark);margin-right:6px}
+  .char .pinyin{color:var(--muted);font-style:italic;font-size:12.5px;display:block;margin-bottom:2px}
+  .char .elmark{font-size:10.5px;font-weight:800;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+  .elmark.wood{background:#e3f2e9;color:var(--wood)} .elmark.fire{background:#fde7df;color:var(--fire)}
+  .why{font-size:13.5px;background:#f4faf5;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:8px}
+  .why b{color:var(--green)}
+  .bad{font-size:13px;background:#fff9ec;border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 8px 8px 0;margin-top:8px}
+  .ill-note{font-size:12px;color:var(--muted);font-style:italic;margin:4px 0 0}
+  /* paywall */
+  .locked-content{position:relative}
+  body:not(.is-member) .locked-content{filter:blur(7px);pointer-events:none;user-select:none}
+  .lock-overlay{display:none;position:absolute;inset:0;z-index:5;background:linear-gradient(180deg,rgba(250,246,239,.15) 0%,var(--lock-bg) 55%);
+    border-radius:12px;text-align:center;padding:26px 20px;color:#fff;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+  body:not(.is-member) .lock-overlay{display:flex}
+  .lock-overlay .lock-ico{font-size:34px}
+  .lock-overlay h4{font-size:16.5px;font-weight:800;line-height:1.35}
+  .lock-overlay p{font-size:13px;opacity:.85;max-width:340px}
+  .lock-btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:14.5px;text-decoration:none;
+    padding:11px 26px;border-radius:999px;margin-top:4px;box-shadow:0 4px 14px rgba(217,164,65,.4)}
+  .lock-overlay small{opacity:.7;font-size:12px}
+  .report-list{display:grid;grid-template-columns:1fr;gap:12px}
+  .report-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+  .report-item .ico{font-size:26px;flex:0 0 36px;text-align:center}
+  .report-item h4{font-size:15px;font-weight:800;margin-bottom:2px}
+  .report-item p{font-size:13px;color:var(--muted)}
+  /* upsell */
+  .upsell{background:linear-gradient(160deg,#1f1a15,#3a2c1f);color:#fff;border-radius:20px;padding:30px 22px;text-align:center;margin:8px 0 22px}
+  .upsell h3{font-size:20px;font-weight:800;margin-bottom:8px}
+  .upsell p{opacity:.9;font-size:14.5px;max-width:480px;margin:0 auto 16px}
+  .upsell .btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:16px;text-decoration:none;
+    padding:13px 32px;border-radius:999px;box-shadow:0 6px 18px rgba(217,164,65,.35)}
+  .upsell small{display:block;margin-top:12px;opacity:.7;font-size:12.5px}
+  /* CTA */
+  .cta{background:linear-gradient(160deg,var(--red) 0%,var(--red-dark) 100%);color:#fff;border-radius:20px;padding:32px 22px;text-align:center;margin:34px 0 10px}
+  .cta h2{color:#fff;justify-content:center;font-size:23px;margin-bottom:10px}
+  .cta p{opacity:.95;font-size:15px;max-width:480px;margin:0 auto 20px}
+  .cta .btn{display:inline-block;background:var(--gold);color:#2b2118;font-weight:800;font-size:17px;text-decoration:none;
+    padding:14px 34px;border-radius:999px;box-shadow:0 6px 18px rgba(217,164,65,.35)}
+  .cta small{display:block;margin-top:14px;opacity:.85;font-size:12.5px}
+  .disclaimer{font-size:11.5px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.6}
+  footer{padding:26px 0 50px;font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--red-dark)}
+  footer .src{margin-top:8px;line-height:1.8}
+  @media(min-width:640px){
+    .steps{grid-template-columns:repeat(3,1fr)}
+    .char-row{grid-template-columns:repeat(3,1fr)}
+    .report-list{grid-template-columns:1fr 1fr}
+    header.hero h1{font-size:36px}
+    .ex-han{font-size:52px}
+  }
+  @media print{
+    header.hero,.cta,.upsell{background:#fff;color:#000;border:1px solid #ccc}
+    .btn,.lock-btn{border:1px solid #000;color:#000;box-shadow:none}
+    body:not(.is-member) .locked-content{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="han-bg">名</div>
+  <div class="kicker">ChinaPal AI · Birth Chart Name</div>
+  <h1>Your Chinese name should be<br>written in YOUR birth chart</h1>
+  <p class="sub">Western astrology gives you a sun sign. For 3,000 years, Chinese tradition has gone deeper: your birth date reveals your Five Elements balance — and your name is chosen to complete it. Get yours free.</p>
+  <div class="name-form">
+    <label>Get your name free — takes 1 minute:</label>
+    <div class="row">
+      <input type="text" id="nameInput" placeholder="Your English name, e.g. Leo" aria-label="Your English name">
+      <a class="btn" id="getNameBtn" href="https://chinapal.world" target="_blank" rel="noopener">Get my name →</a>
+    </div>
+    <small>Free · No sign-up · Ask ChinaPal AI in English · Full birth-chart version unlocks below</small>
+    <div class="prompt-copy">
+      💬 Just say: <code>"My name is <span id="promptName">Leo</span>. Give me a Chinese name that sounds like mine, has a beautiful meaning, and explain each character."</code>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2><span class="bar"></span>The secret behind a real Chinese name</h2>
+    <p class="lead">In China, a name is never just a pretty sound. It's born from your <b>Bazi</b> (八字, "Eight Characters") — the year, month, day and hour of your birth, mapped onto the <b>Five Elements (五行)</b>:</p>
+    <div class="elements">
+      <div class="el wood"><span class="han">木</span><b>Wood</b><span>growth · creativity</span></div>
+      <div class="el fire"><span class="han">火</span><b>Fire</b><span>passion · warmth</span></div>
+      <div class="el earth"><span class="han">土</span><b>Earth</b><span>stability · care</span></div>
+      <div class="el metal"><span class="han">金</span><b>Metal</b><span>precision · clarity</span></div>
+      <div class="el water"><span class="han">水</span><b>Water</b><span>wisdom · depth</span></div>
+    </div>
+    <div class="cycle">🔥 The elements feed each other in a cycle — Wood feeds Fire, Fire creates Earth, Earth bears Metal, Metal carries Water, Water nourishes Wood. When your chart runs heavy on one element or light on another, traditional naming adds the element you're missing <b>through the characters themselves</b>. Spoken every day for a lifetime, your name becomes a quiet wish — a daily rebalance of who you are.</div>
+  </section>
+
+  <section>
+    <h2><span class="bar"></span>How your name is made</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div><h4>Cast your chart</h4><p>Your birth date becomes Four Pillars, each carrying elements. Your <i>Day Master</i> is your core — like your sun sign, but more precise.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div><h4>Find your element</h4><p>Too much Water? Not enough Fire? We identify the element that restores your balance — your <i>favourable element</i>.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div><h4>Name you to complete it</h4><p>We choose characters that carry that element's energy — while still sounding like your name and meaning something beautiful.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="bar"></span>See what you get</h2>
+    <p class="lead">Three real-style names from ChinaPal AI. The free version gives you your name, pinyin and meaning; the Birth Chart version adds the element work behind every choice.</p>
+
+    <div class="example">
+      <div class="ex-head">
+        <div class="ex-han">李昂</div>
+        <div class="ex-meta">
+          <div class="from">For <b>Leo</b> · born in deep winter</div>
+          <div class="py">Lǐ <span class="tone">Áng</span></div>
+          <div class="chart-tag">❄️ Water-heavy chart · favours Wood &amp; Fire <small>illustrative chart</small></div>
+        </div>
+      </div>
+      <div class="char-row">
+        <div class="char"><span class="pinyin">Lǐ</span><b>李</b><span class="elmark wood">Wood</span>Plum tree — China's beloved surname, echoes the "L" of Leo, and as a living tree it channels his chart's deep Water into growth.</div>
+        <div class="char"><span class="pinyin">Áng</span><b>昂</b><span class="elmark fire">Fire</span>High-spirited, head held high — the warmth and brightness his winter chart reaches for. Sounds almost exactly like "Leo."</div>
+        <div class="char"><span class="pinyin">together</span><b>李昂</b>Water → Wood → Fire: the element cycle flows perfectly, and it still reads like a native name.</div>
+      </div>
+      <div class="why">✓ <b>Why it works:</b> A winter, Water-heavy chart values warmth and outward energy. <i>Lǐ Áng</i> literally feeds the missing elements — "the proud one" whose depth (Water) grows into warmth (Fire).</div>
+      <p class="ill-note">Illustrative example — your report calculates your real chart from your exact birth date &amp; hour.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-head">
+        <div class="ex-han">米雅</div>
+        <div class="ex-meta">
+          <div class="from">For <b>Mia</b> · from the UK</div>
+          <div class="py">Mǐ <span class="tone">Yǎ</span></div>
+          <div class="chart-tag">🌸 Balanced chart · chosen for sound &amp; grace</div>
+        </div>
+      </div>
+      <div class="char-row">
+        <div class="char"><span class="pinyin">Mǐ</span><b>米</b>Rice — warm, everyday, the staff of life. Mirrors the "Mee" sound of Mia.</div>
+        <div class="char"><span class="pinyin">Yǎ</span><b>雅</b>Elegant, refined — from classical poetry to Beijing's theatre houses. Captures her soft "a" ending.</div>
+        <div class="char"><span class="pinyin">together</span><b>米雅</b>A name Chinese friends call cute and graceful at the same time.</div>
+      </div>
+      <div class="bad">✗ <b>The trap we avoided:</b> A generator once gave Mia "Mǐlā" 米拉 — sounds like a noodle brand. Chinese friends will politely never mention it.</div>
+    </div>
+
+    <div class="example">
+      <div class="ex-head">
+        <div class="ex-han">家杰</div>
+        <div class="ex-meta">
+          <div class="from">For <b>Jack</b> · from Australia</div>
+          <div class="py">Jiā <span class="tone">Jié</span></div>
+          <div class="chart-tag">🌳 Wood-favoured chart</div>
+        </div>
+      </div>
+      <div class="char-row">
+        <div class="char"><span class="pinyin">Jiā</span><b>家</b><span class="elmark wood">Wood</span>Family, home — the roof-and-pig radical under a tree. Rhymes with the opening of "Jack."</div>
+        <div class="char"><span class="pinyin">Jié</span><b>杰</b><span class="elmark wood">Wood</span>Outstanding, a hero — built on the tree radical 木. Matches the hard "ck" ending of Jack.</div>
+        <div class="char"><span class="pinyin">together</span><b>家杰</b>"The outstanding one of the family" — a traditional wish, doubled in the element his chart calls for.</div>
+      </div>
+      <div class="why">✓ <b>Why it works:</b> Modern enough for a business card, traditional enough that a Chinese grandfather would nod at it.</div>
+    </div>
+  </section>
+
+  <div class="upsell">
+    <h3>Get your full Birth Chart Name report 🔥</h3>
+    <p>Your real Four Pillars, your Five Elements balance, the element your chart is missing — and three names whose characters carry it. Plus calligraphy wallpaper and a shareable name card with your element tag.</p>
+    <a class="btn" href="https://chinapal.world" target="_blank" rel="noopener">Unlock my Birth Chart Name — $9.99</a>
+    <small>or free with a ChinaPal AI subscription · includes all China travel guides too</small>
+  </div>
+
+  <section class="section-lock">
+    <h2><span class="bar"></span>What's in the full report 🔒</h2>
+    <p class="lead">Every Birth Chart Name report includes:</p>
+    <div class="locked-content">
+      <div class="report-list">
+        <div class="report-item">
+          <div class="ico">🎋</div>
+          <div><h4>Your real Four Pillars chart</h4><p>Year, month, day and hour pillars calculated precisely from your birth date &amp; time — not guessed, computed the traditional way.</p></div>
+        </div>
+        <div class="report-item">
+          <div class="ico">🌗</div>
+          <div><h4>Five Elements balance profile</h4><p>Your element distribution chart, your Day Master (your Chinese "core self"), and which element runs strong — or missing.</p></div>
+        </div>
+        <div class="report-item">
+          <div class="ico">✨</div>
+          <div><h4>Your favourable element</h4><p>The element that restores your balance, with the reasoning: why Water needs Wood, why Fire calms Metal — explained in plain English.</p></div>
+        </div>
+        <div class="report-item">
+          <div class="ico">📜</div>
+          <div><h4>Three chart-aligned names</h4><p>Three candidates, each character tagged with its element and chosen to feed your favourable one — still sounding like your name.</p></div>
+        </div>
+        <div class="report-item">
+          <div class="ico">✒️</div>
+          <div><h4>Character-by-character breakdown</h4><p>Radical, stroke order, tone harmony, classical phrases your characters appear in — and the homophone safety check.</p></div>
+        </div>
+        <div class="report-item">
+          <div class="ico">🖼️</div>
+          <div><h4>Calligraphy wallpaper &amp; name card</h4><p>Your name in three calligraphy styles for your lock screen, plus a shareable card stamped with your element tag — "🔥 a Fire-Wood name for a Water-chart soul."</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="lock-overlay">
+      <div class="lock-ico">🔒</div>
+      <h4>Your birth chart is the key to your real Chinese name</h4>
+      <p>Four Pillars chart · Five Elements profile · three element-aligned names · calligraphy wallpaper · shareable element name card.</p>
+      <a class="lock-btn" href="https://chinapal.world" target="_blank" rel="noopener">Unlock for $9.99 — or free with subscription</a>
+      <small>Subscription also unlocks the full China Cheap Eats Guide &amp; every travel guide</small>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Start with your name — free</h2>
+    <p>Ask ChinaPal AI for a Chinese name in English. Fall in love with it. Then unlock the 3,000-year-old reason behind it.</p>
+    <a class="btn" href="https://chinapal.world" target="_blank" rel="noopener">Get my Chinese name free →</a>
+    <small>chinapal.world · No sign-up needed for your first name</small>
+  </section>
+
+  <p class="disclaimer">Rooted in the traditional Chinese naming art and Five Elements (Wu Xing) tradition, offered as a cultural experience and tool for self-reflection — not fortune telling. Charts computed deterministically; readings written for curiosity and connection.</p>
+
+  <footer>
+    <div>ChinaPal AI — your Chinese friend, online. Travel tools for China · culture for everywhere.</div>
+    <div class="src">Context: Chinese Five Elements &amp; BaZi birth charts are among the fastest-growing Eastern-tradition content in English, with platforms like <a href="https://www.tkfff.com/167289.html" target="_blank" rel="noopener">FateTell</a> and <a href="https://aitools.fyi/zh/baziai" target="_blank" rel="noopener">BaziAI</a> showing users pay $15–40 for AI Chinese metaphysics reports; traditional birth-date naming methodology documented by <a href="https://bazinaming.com/blog/lucky-baby-name-bazi-complete-guide" target="_blank" rel="noopener">BaziNaming</a> and <a href="https://www.legacyname.co/blog/name-according-to-birth-date" target="_blank" rel="noopener">LegacyName</a>; name-tool landscape via <a href="https://goeastmandarin.com/chinese-name-generator/" target="_blank" rel="noopener">GoEast</a> &amp; <a href="https://chinesename.io/" target="_blank" rel="noopener">ChineseName.io</a>.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('nameInput');
+  var pname = document.getElementById('promptName');
+  input.addEventListener('input', function(){
+    var v = (input.value || '').trim() || 'your name';
+    pname.textContent = v;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<!--
-  30 Days the Chinese Way — P5 情绪价值产品落地页（2026-08-30）
-  定价 $4.99 单买 / ChinaPal Membership $4.99/月 内含
-  付费墙：body.is-member 时 .locked 全显；部署时接 chinapal.world 登录/订阅校验后加 class。
-  进阶加固：锁定内容改为异步注入（部署时由后端按会员状态返回）。
-  合规红线：wellness / self-care / cultural experience 包装，禁止医疗承诺。
-  承接：#BecomingChinese 40亿播放风口；Shorts "Day 1 of becoming Chinese" 挂本页。
--->
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -63,6 +56,7 @@ footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;colo
 footer a{color:var(--gray)}
 @media(max-width:600px){.hero h1{font-size:30px}.includes{grid-template-columns:1fr}.hero{padding:40px 16px 24px}}
 </style>
+<style id="free-unlock">.locked-content{filter:none!important;pointer-events:auto!important;user-select:auto!important;display:block!important}.lock-overlay,.section-lock .lock-overlay{display:none!important}.locked .body{filter:none!important;pointer-events:auto!important;user-select:auto!important}.lock-veil{display:none!important}</style>
 </head>
 <body>
 <nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;max-width:960px;margin:0 auto;flex-wrap:wrap;border-bottom:1px solid rgba(35,32,27,.1)"><a href="/" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:#23201b;text-decoration:none"><span style="width:28px;height:28px;background:#c8321d;color:#fff;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;transform:rotate(-3deg)">友</span>ChinaPal AI</a><span style="display:flex;align-items:center;gap:14px;font-size:13.5px;font-weight:700;flex-wrap:wrap"><a href="/guides/your-chinese-name/" style="color:#4a443c;text-decoration:none">Chinese Name</a><a href="/guides/thirty-days/" style="color:#4a443c;text-decoration:none">30 Days</a><a href="/guides/cheap-eats/" style="color:#4a443c;text-decoration:none">Cheap Eats</a><a href="/guides/chinese-era-kit/" style="color:#4a443c;text-decoration:none">Free Kit</a><a href="https://aihubai.cn/" style="background:#23201b;color:#fff!important;text-decoration:none;padding:9px 18px;border-radius:999px">Chat AI</a></span></nav>
@@ -71,7 +65,7 @@ footer a{color:var(--gray)}
   <span class="kicker">#BecomingChinese · 40B+ views</span>
   <h1>30 Days <em>the Chinese Way</em></h1>
   <p>One tiny slow-living ritual every morning — the same habits millions of people are adopting in the "Becoming Chinese" trend. Warm water, warm porridge, early nights, evening foot soaks. No gadgets, no expensive stuff.</p>
-  <div class="price-pill"><b>$4.99</b> for all 30 days · or included in membership</div><br>
+  <div class="price-pill"><b>Free</b> · the whole kit</div><br>
   <a class="btn" href="#get">Start your 30 days →</a>
 </header>
 
@@ -87,7 +81,7 @@ footer a{color:var(--gray)}
 </section>
 
 <section class="sec">
-  <h2>Your first 3 days are free</h2>
+  <h2>All 30 days — free</h2>
   <p class="lead">Each day unlocks one ritual, the story behind it, and a 30-second how-to. Check in with ChinaPal AI any time: <i>"Today is Day 7, I forgot the steps"</i> — it remembers where you are.</p>
 
   <div class="day">
@@ -112,10 +106,10 @@ footer a{color:var(--gray)}
         <p>Each day includes: the ritual · the cultural story · a 30-second how-to · your AI check-in. By Day 30, friends will ask why you look so rested.</p>
       </div>
     </div>
-    <div class="lock-veil">
-      <div class="lock">🔒</div>
-      <b>Days 4–30 are locked</b>
-      <span>Unlock all 30 days for $4.99 — or join ChinaPal Membership and get this plus travel guides, your birth-chart Chinese name, and unlimited AI chat.</span>
+    <div class="lock-veil" style="display:flex!important;background:rgba(231,246,236,.94)">
+      <div class="lock">🌿</div>
+      <b style="color:#16a34a">All 30 days are free</b>
+      <span>This whole guide is free — no paywall. Want a Chinese name from your birth date? Also free at chinapal.world.</span>
     </div>
   </div>
 </section>

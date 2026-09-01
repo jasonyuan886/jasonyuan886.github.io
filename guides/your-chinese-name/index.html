@@ -152,7 +152,7 @@
     <label>Get your name free — takes 1 minute:</label>
     <div class="row">
       <input type="text" id="nameInput" placeholder="Your English name, e.g. Leo" aria-label="Your English name">
-      <a class="btn" id="getNameBtn" href="https://chinapal.world" target="_blank" rel="noopener">Get my name →</a>
+      <a class="btn" id="getNameBtn" href="#get" target="_blank" rel="noopener">Get my name →</a>
     </div>
     <small>Free · No sign-up · Ask ChinaPal AI in English · Full birth-chart version unlocks below</small>
     <div class="prompt-copy">
@@ -254,11 +254,11 @@
   <div class="upsell">
     <h3>Get your full Birth Chart Name report 🔥</h3>
     <p>Your real Four Pillars, your Five Elements balance, the element your chart is missing — and three names whose characters carry it. Plus calligraphy wallpaper and a shareable name card with your element tag.</p>
-    <a class="btn" href="https://chinapal.world" target="_blank" rel="noopener">Unlock my Birth Chart Name — $9.99</a>
+    <a class="btn" href="#get" target="_blank" rel="noopener">Unlock my Birth Chart Name — $9.99</a>
     <small>or free with a ChinaPal AI subscription · includes all China travel guides too</small>
   </div>
 
-  <section class="section-lock">
+  <section id="get" class="section-lock">
     <h2><span class="bar"></span>What's in the full report 🔒</h2>
     <p class="lead">Every Birth Chart Name report includes:</p>
     <div class="locked-content">
@@ -293,7 +293,7 @@
       <div class="lock-ico">🔒</div>
       <h4>Your birth chart is the key to your real Chinese name</h4>
       <p>Four Pillars chart · Five Elements profile · three element-aligned names · calligraphy wallpaper · shareable element name card.</p>
-      <a class="lock-btn" href="https://chinapal.world" target="_blank" rel="noopener">Unlock for $9.99 — or free with subscription</a>
+      <a class="lock-btn" href="#get" target="_blank" rel="noopener">Unlock for $9.99 — or free with subscription</a>
       <small>Subscription also unlocks the full China Cheap Eats Guide &amp; every travel guide</small>
     </div>
   </section>
@@ -301,7 +301,7 @@
   <section class="cta">
     <h2>Start with your name — free</h2>
     <p>Ask ChinaPal AI for a Chinese name in English. Fall in love with it. Then unlock the 3,000-year-old reason behind it.</p>
-    <a class="btn" href="https://chinapal.world" target="_blank" rel="noopener">Get my Chinese name free →</a>
+    <a class="btn" href="#get" target="_blank" rel="noopener">Get my Chinese name free →</a>
     <small>chinapal.world · No sign-up needed for your first name</small>
   </section>
 
@@ -324,5 +324,6 @@
   });
 })();
 </script>
+<script>(function(){var p="Hi! I would like a free Chinese name. I was born on [YOUR BIRTH DATE] at [BIRTH TIME], my gender is [M/F], and my English name is [YOUR NAME]. Please give me one Chinese name with pinyin, the meaning of each character, and which of my Five Elements it balances.";document.addEventListener("click",function(e){var a=e.target.closest("a");if(a&&a.href.indexOf("aihubai.cn")>-1){try{navigator.clipboard.writeText(p)}catch(x){}}});})();</script>
 </body>
 </html>

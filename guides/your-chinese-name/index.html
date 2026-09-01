@@ -1,14 +1,5 @@
 <!doctype html>
-<!--
-  Birth Chart Name — 情绪价值产品线 P1 落地页（2026-08-30 八字升级版）
-  定位：不来中国的老外也会付费的情绪钩子。免费拿1个中文名+含义；付费$9.99按八字五行定制完整命名报告。
-  付费墙机制同 china_cheap_eats_guide.html：chinapal.world 登录/订阅校验通过后给 <body><nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;max-width:960px;margin:0 auto;flex-wrap:wrap;border-bottom:1px solid rgba(35,32,27,.1)"><a href="/" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:#23201b;text-decoration:none"><span style="width:28px;height:28px;background:#c8321d;color:#fff;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;transform:rotate(-3deg)">友</span>ChinaPal AI</a><span style="display:flex;align-items:center;gap:14px;font-size:13.5px;font-weight:700;flex-wrap:wrap"><a href="/guides/your-chinese-name/" style="color:#4a443c;text-decoration:none">Chinese Name</a><a href="/guides/thirty-days/" style="color:#4a443c;text-decoration:none">30 Days</a><a href="/guides/cheap-eats/" style="color:#4a443c;text-decoration:none">Cheap Eats</a><a href="/guides/chinese-era-kit/" style="color:#4a443c;text-decoration:none">Free Kit</a><a href="https://aihubai.cn/" style="background:#23201b;color:#fff!important;text-decoration:none;padding:9px 18px;border-radius:999px">Chat AI</a></span></nav> 加 class="is-member" 全显；
-  进阶加固：锁定内容改为付费校验后异步注入。
-  ⚠️ 红线1：八字四柱/五行必须服务端排盘库（lunar-python/sxtwl 类）确定性计算，禁止LLM编八字；AI只做解读+选字。
-  ⚠️ 红线2：全站定位 cultural experience / self-reflection，禁止命运/运势承诺（FateTell 同款"自我探索工具"口径）。
-  ⚠️ 上线前实测项见《情绪价值产品线.md》三-P1：排盘案例校验、AI选字五行属性核对、免费prompt质量。
-  页面中的八字示例为 illustrative 展示，真实报告由排盘引擎生成。
--->
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -140,6 +131,7 @@
     body:not(.is-member) .locked-content{display:none}
   }
 </style>
+<style id="free-unlock">.locked-content{filter:none!important;pointer-events:auto!important;user-select:auto!important;display:block!important}.lock-overlay,.section-lock .lock-overlay{display:none!important}.locked .body{filter:none!important;pointer-events:auto!important;user-select:auto!important}</style>
 </head>
 <body>
 
@@ -254,8 +246,8 @@
   <div class="upsell">
     <h3>Get your full Birth Chart Name report 🔥</h3>
     <p>Your real Four Pillars, your Five Elements balance, the element your chart is missing — and three names whose characters carry it. Plus calligraphy wallpaper and a shareable name card with your element tag.</p>
-    <a class="btn" href="#get" target="_blank" rel="noopener">Unlock my Birth Chart Name — $9.99</a>
-    <small>or free with a ChinaPal AI subscription · includes all China travel guides too</small>
+    <a class="btn" href="https://www.paypal.com/paypalme/withlinkled/9.99" target="_blank" rel="noopener">Get my full Birth Chart Name Report — $9.99</a>
+    <small>One-time payment · you keep the report forever</small>
   </div>
 
   <section id="get" class="section-lock">
@@ -293,7 +285,7 @@
       <div class="lock-ico">🔒</div>
       <h4>Your birth chart is the key to your real Chinese name</h4>
       <p>Four Pillars chart · Five Elements profile · three element-aligned names · calligraphy wallpaper · shareable element name card.</p>
-      <a class="lock-btn" href="#get" target="_blank" rel="noopener">Unlock for $9.99 — or free with subscription</a>
+      <a class="lock-btn" href="https://www.paypal.com/paypalme/withlinkled/9.99" target="_blank" rel="noopener">Get the full report — $9.99 one-time</a>
       <small>Subscription also unlocks the full China Cheap Eats Guide &amp; every travel guide</small>
     </div>
   </section>

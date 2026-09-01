@@ -1,11 +1,5 @@
 <!doctype html>
-<!--
-  China Cheap Eats Guide — 付费墙落地页（2026-08-30 袁总定）
-  模式：免费试读前2道（视频同款茶叶蛋+煎饼，建立信任），第3道起 + Ordering Survival Kit 模糊锁定，
-  解锁CTA直达 https://chinapal.world（订阅/付费ChinaPal AI后解锁）。
-  生产部署接入：chinapal.world 登录态/订阅校验通过后给 <body><nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;max-width:960px;margin:0 auto;flex-wrap:wrap;border-bottom:1px solid rgba(35,32,27,.1)"><a href="/" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:#23201b;text-decoration:none"><span style="width:28px;height:28px;background:#c8321d;color:#fff;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:16px;transform:rotate(-3deg)">友</span>ChinaPal AI</a><span style="display:flex;align-items:center;gap:14px;font-size:13.5px;font-weight:700;flex-wrap:wrap"><a href="/guides/your-chinese-name/" style="color:#4a443c;text-decoration:none">Chinese Name</a><a href="/guides/thirty-days/" style="color:#4a443c;text-decoration:none">30 Days</a><a href="/guides/cheap-eats/" style="color:#4a443c;text-decoration:none">Cheap Eats</a><a href="/guides/chinese-era-kit/" style="color:#4a443c;text-decoration:none">Free Kit</a><a href="https://aihubai.cn/" style="background:#23201b;color:#fff!important;text-decoration:none;padding:9px 18px;border-radius:999px">Chat AI</a></span></nav> 加 class="is-member"，锁定内容自动全显；
-  未登录/未付费保持当前锁定态。进阶加固：锁定内容改为付费校验后异步注入（当前全文在HTML中利于SEO收录）。
--->
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -121,6 +115,7 @@
     .lock-overlay{display:none !important}
   }
 </style>
+<style id="free-unlock">.locked-content{filter:none!important;pointer-events:auto!important;user-select:auto!important;display:block!important}.lock-overlay,.section-lock .lock-overlay{display:none!important}.locked .body{filter:none!important;pointer-events:auto!important;user-select:auto!important}.lock-veil{display:none!important}</style>
 </head>
 <body>
 
@@ -134,7 +129,7 @@
       <div class="stat"><b>¥2–30</b><span>most street food ($0.30–4)</span></div>
       <div class="stat"><b>0%</b><span>tipping — anywhere, ever</span></div>
     </div>
-    <div class="preview-badge">🔓 Free preview: 2 of 10 dishes</div>
+    <div class="preview-badge">✅ Full free guide · all 10 dishes</div>
   </div>
 </header>
 
@@ -182,8 +177,8 @@
   <div class="upsell">
     <h3>🔒 8 more dishes + the Ordering Survival Kit</h3>
     <p>Roujiamo, xiaolongbao, stinky tofu, hulatang (the £13.80 London soup — ¥12 at home), hotpot and more — plus the Chinese phrase cheat sheet and the mobile-payment setup that gets you fed anywhere.</p>
-    <a class="btn" href="https://aihubai.cn/">Unlock the full guide →</a>
-    <small>Included with ChinaPal AI · chinapal.world</small>
+    <a class="btn" href="https://chinapal.world/guides/your-chinese-name/">Get your free Chinese name →</a>
+    <small>Free guide · 100% unlocked · no sign-up</small>
   </div>
 
   <!-- 3 Roujiamo — LOCKED -->
@@ -205,9 +200,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -230,9 +225,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -255,9 +250,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -280,9 +275,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -305,9 +300,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -330,9 +325,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -358,7 +353,7 @@
       <div class="lock-ico">🔒</div>
       <h4>The £13.80 London bowl — ¥12 in China</h4>
       <p>Unlock for the exact spot, timing, and the Chinese line to order like a regular.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -381,9 +376,9 @@
     </div>
     <div class="lock-overlay">
       <div class="lock-ico">🔒</div>
-      <h4>This dish is unlocked in the full guide</h4>
+      <h4>Ask ChinaPal AI for the full ordering playbook</h4>
       <p>Where to find it, when to go, and the exact Chinese line to order.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 
@@ -407,7 +402,7 @@
       <div class="lock-ico">🔒</div>
       <h4>This bonus is in the full guide</h4>
       <p>Plus the Ordering Survival Kit with every Chinese phrase you'll need.</p>
-      <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+      <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
     </div>
   </article>
 </section>
@@ -464,7 +459,7 @@
     <div class="lock-ico">🔒</div>
     <h4>The Ordering Survival Kit is part of the full guide</h4>
     <p>8 phrase cheat lines, the local-queue rules, and step-by-step mobile payment setup with a foreign card.</p>
-    <a class="lock-btn" href="https://chinapal.world/#pricing">Unlock with ChinaPal AI</a>
+    <a class="lock-btn" href="https://aihubai.cn/app">Ask ChinaPal AI</a>
   </div>
 </section>
 

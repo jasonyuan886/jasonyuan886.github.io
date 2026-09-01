@@ -144,7 +144,7 @@
     <label>Get your name free — takes 1 minute:</label>
     <div class="row">
       <input type="text" id="nameInput" placeholder="Your English name, e.g. Leo" aria-label="Your English name">
-      <a class="btn" id="getNameBtn" href="#get" target="_blank" rel="noopener">Get my name →</a>
+      <a class="btn js-free-name" id="getNameBtn" href="https://aihubai.cn/app?assistant=culture-guide&ask=Please%20give%20me%20a%20Chinese%20name%20that%20suits%20me%2C%20with%20pinyin%2C%20the%20meaning%20of%20each%20character%2C%20and%20which%20of%20my%20Five%20Elements%20it%20balances.%20Start%20by%20asking%20my%20English%20name%2C%20gender%20and%20birth%20date." target="_blank" rel="noopener">Get my name →</a>
     </div>
     <small>Free · No sign-up · Ask ChinaPal AI in English · Full birth-chart version unlocks below</small>
     <div class="prompt-copy">
@@ -293,7 +293,7 @@
   <section class="cta">
     <h2>Start with your name — free</h2>
     <p>Ask ChinaPal AI for a Chinese name in English. Fall in love with it. Then unlock the 3,000-year-old reason behind it.</p>
-    <a class="btn" href="#get" target="_blank" rel="noopener">Get my Chinese name free →</a>
+    <a class="btn js-free-name" href="https://aihubai.cn/app?assistant=culture-guide&ask=Please%20give%20me%20a%20Chinese%20name%20that%20suits%20me%2C%20with%20pinyin%2C%20the%20meaning%20of%20each%20character%2C%20and%20which%20of%20my%20Five%20Elements%20it%20balances.%20Start%20by%20asking%20my%20English%20name%2C%20gender%20and%20birth%20date." target="_blank" rel="noopener">Get my Chinese name free →</a>
     <small>chinapal.world · No sign-up needed for your first name</small>
   </section>
 
@@ -316,6 +316,23 @@
   });
 })();
 </script>
-<script>(function(){var p="Hi! I would like a free Chinese name. I was born on [YOUR BIRTH DATE] at [BIRTH TIME], my gender is [M/F], and my English name is [YOUR NAME]. Please give me one Chinese name with pinyin, the meaning of each character, and which of my Five Elements it balances.";document.addEventListener("click",function(e){var a=e.target.closest("a");if(a&&a.href.indexOf("aihubai.cn")>-1){try{navigator.clipboard.writeText(p)}catch(x){}}});})();</script>
+<script>(function(){
+function goName(e){
+  var a=e.target.closest("a.js-free-name"); if(!a) return;
+  e.preventDefault();
+  var inp=document.getElementById("nameInput");
+  var n=inp?(inp.value||"").trim():"";
+  var p;
+  if(n){
+    p="My name is "+n+". Please give me one Chinese name that sounds similar to mine. Include pinyin, the meaning of each character, and which of my Five Elements it balances. Keep it friendly and concise.";
+  }else{
+    p="Please give me a Chinese name that suits me, with pinyin, the meaning of each character, and which of my Five Elements it balances. Start by asking my English name, gender and birth date.";
+  }
+  window.open("https://aihubai.cn/app?assistant=culture-guide&ask="+encodeURIComponent(p),"_blank","noopener");
+}
+document.addEventListener("click",goName);
+var inp2=document.getElementById("nameInput");
+if(inp2){ inp2.addEventListener("keydown",function(ev){ if(ev.key==="Enter"){ ev.preventDefault(); var b=document.getElementById("getNameBtn"); if(b) b.click(); } }); }
+})();</script>
 </body>
 </html>

@@ -101,7 +101,6 @@
     .door{padding:32px 28px}
   }
 </style>
-<script src="https://www.paypal.com/sdk/js?client-id=AXN5OatqRTqARNS8Op_oHXqtvokFlvzlppWEsmoQdSAXFvnfxnU7RRfk-tG0hVeZRsxzZ1KXf4mCFooh&currency=USD"></script>
 </head>
 <body>
 
@@ -195,7 +194,7 @@
       <div class="tier">Birth Chart Name (One-time)</div>
       <div class="amt">$9.99</div>
       <p>Five Elements analysis report &amp; Chinese name with full breakdown.</p>
-      <div id="paypal-birthchart-btn" style="margin-top:14px;"></div>
+      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=freshlocksealer%40gmail.com&item_name=Birth+Chart+Name&amount=9.99&currency_code=USD" target="_blank" style="display:inline-block;margin-top:14px;padding:12px 32px;background:#0070ba;color:#fff;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;">Buy $9.99</a>
     </div>
   </div>
 
@@ -212,17 +211,5 @@
   </footer>
 
 </div>
-<script>
-paypal.Buttons({
-  style:{shape:'pill',color:'gold',label:'subscribe'},
-  createOrder:function(d,a){return a.order.create({purchase_units:[{description:'ChinaPal Weekly Membership',amount:{value:'4.99'}}]})},
-  onApprove:function(d,a){return a.order.capture().then(function(det){alert('Payment successful! Your weekly membership is now active.')})}
-}).render('#paypal-weekly-btn');
-paypal.Buttons({
-  style:{shape:'pill',color:'gold',label:'buy'},
-  createOrder:function(d,a){return a.order.create({purchase_units:[{description:'Birth Chart Name',amount:{value:'9.99'}}]})},
-  onApprove:function(d,a){return a.order.capture().then(function(det){alert('Payment successful! We will email your Birth Chart Name report soon.')})}
-}).render('#paypal-birthchart-btn');
-</script>
 </body>
 </html>

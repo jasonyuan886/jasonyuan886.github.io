@@ -101,6 +101,55 @@
     .door{padding:32px 28px}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://chinapal.world/#org",
+      "name": "ChinaPal AI",
+      "url": "https://chinapal.world/",
+      "sameAs": ["https://aihubai.cn/"],
+      "description": "AI travel and culture companion for foreigners visiting China and people connecting with Chinese culture from abroad."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://chinapal.world/#website",
+      "url": "https://chinapal.world/",
+      "name": "ChinaPal AI",
+      "publisher": {"@id": "https://chinapal.world/#org"}
+    },
+    {
+      "@type": "Product",
+      "name": "ChinaPal Birth Chart Chinese Name",
+      "description": "A personalized Chinese name calculated from your birth date and time using the traditional Five Elements (Bazi) method, with a full analysis report.",
+      "brand": {"@id": "https://chinapal.world/#org"},
+      "url": "https://chinapal.world/guides/your-chinese-name/",
+      "offers": {
+        "@type": "Offer",
+        "price": "9.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "ChinaPal Weekly Membership",
+      "description": "Unlimited AI chat plus all China travel guides (food, payment, transport) and the 30 Days the Chinese Way cultural program.",
+      "brand": {"@id": "https://chinapal.world/#org"},
+      "url": "https://chinapal.world/",
+      "offers": {
+        "@type": "Offer",
+        "price": "4.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "eligibleDuration": {"@type": "QuantitativeValue", "value": "7", "unitCode": "DAY"}
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
